@@ -139,7 +139,6 @@ async function promptUser(){
             name:"question",
             message:"Enter your Questions section: ",
         },
-
     ])
 }
 
