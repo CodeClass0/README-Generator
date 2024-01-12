@@ -1,6 +1,8 @@
-// TODO: Include packages needed for this application
-const  inquirer = require("inquirer");
-const fs = require('fs');
+//Global variables
+const  inquirer = require("inquirer"); //This calls the inquirer package
+const fs = require('fs'); //This calls the filesystem package
+
+//This is an array of objects that are matched against once we have the user's license selection.
 const licenseArray = [{
     value: "Apache License 2.0",
     icon: "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)",
@@ -54,7 +56,8 @@ const licenseArray = [{
     icon: "[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)",
 }];
 
-// TODO: Create an array of questions for user input
+
+//This is what prompts the user. It runs through a series of questions and returns a usable object.
 async function promptUser(){
     return inquirer.prompt([
         {
@@ -77,11 +80,11 @@ async function promptUser(){
             name:"usage",
             message:"Enter your Usage section: ",
         },
-        {
+        {//This is a list, rather than an input so that we can provide a badge for the user's selection. 
             type:"list",
             name:"license",
             message:"Select your License: ",
-            choices: [{
+            choices: [{ 
                 value: "Apache License 2.0",
             },
             {
@@ -141,7 +144,8 @@ async function promptUser(){
 }
 
 
-//This function creates a file with the information we pass to it.
+//This function creates a file with the information we pass to it as a final step in creating the README. 
+//We don't check for an existing README because writeToFile() will either create a file, or overwrite an existing file.
 function writeToFile(fileName, markdown) {
     fs.writeFile(fileName, markdown, (err) =>
     err ? console.log(err) : console.log("Your README has been populated!"));
@@ -156,7 +160,8 @@ function sortIcon(data){
     }
 }
 
-// Here we initialize the app and call the async promptser function.
+// Here we initialize the app and call the async promptUser function.
+// It must be asynchronous because we have to wait for the user to finish enterring information.
 async function init() {
     const data = await promptUser().then((data => {
         const icon = sortIcon(data.license);
@@ -165,7 +170,7 @@ async function init() {
     }));
 }
 
-//Here we generate markdown data
+//Here we generate markdown data, populating it with all of the data gained from the user.
 function generateMarkdown(data,icon){
     return `# ${data.projectTitle}
 ${data.description}
