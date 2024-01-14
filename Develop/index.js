@@ -136,8 +136,13 @@ async function promptUser(){
         },
         {
             type:"input",
-            name:"question",
-            message:"Enter your Questions section: ",
+            name:"git",
+            message:"Enter your GitHub URL for the Questions section: ",
+        },
+        {
+            type:"input",
+            name:"email",
+            message:"Enter your email address for the Questions section: ",
         },
     ])
 }
@@ -200,7 +205,11 @@ ${data.contributing}
 ${data.tests}
 <a id="item-six"></a>
 ## Questions
-${data.question}
+For questions, please contact me at:
+
+GitHub: <a href=${data.git}>${data.git}</a>
+
+Email: <a href=mailto:${data.email}>${data.email}</a>
 `
 }
 
